@@ -55,6 +55,20 @@ router.get('/', function (req, res, next) {
   }
 })
 
+router.get('/single', function (req, res, next) {
+  const category = req.query.category ? req.query.category : ''
+  if (category) {
+    db.get().collection(category)
+      .find()
+      .toArray(function (err, result) {
+        if (err) res.status(500).send(httpUtil.error(500, 'Category data error.'))
+        res.send(httpUtil.success(200, '', result))
+      })
+  } else {
+    res.status(500).send("Category is missing.")
+  }
+})
+
 router.post('/add', upload.any('file'), function (req, res, next) {
   const collection = req.body.collection ? req.body.collection : ''
   const category = req.body.category ? req.body.category : ''
