@@ -42,6 +42,7 @@ router.get('/', function (req, res, next) {
             .toArray(async function (err, innerResult) {
               if (err) throw err
               await asyncForEach(innerResult, async (val) => {
+                val['category'] = item.category;
                 await finalResult.push(val)
               })
             })
@@ -94,7 +95,6 @@ router.post('/add', upload.any('file'), function (req, res, next) {
       function (result, callback) {
         let data = {
           image: imageURL,
-          category: category,
           name: service['name'],
           description: service['description']
         }
@@ -173,7 +173,6 @@ router.post('/update', upload.any('file'), function (req, res, next) {
           data = {
             $set: {
               image: imageURL,
-              category: category,
               name: service['name'],
               description: service['description']
             }
