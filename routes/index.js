@@ -21,20 +21,20 @@ router.get('/dashboard', function(req, res, next) {
       })
     },
     function (result, callback) {
-      db.get().collection('environmental')
+      db.get().collection('consultancy')
       .find({})
       .toArray(function (err, result) {
         if (err) callback(err)
-        data['environmental'] = result
+        data['consultancy'] = result
         callback(null, data)
       })
     },
     function (result, callback) {
-      db.get().collection('medical')
+      db.get().collection('otherservices')
       .find({})
       .toArray(function (err, result) {
         if (err) callback(err)
-        data['medical'] = result
+        data['otherservices'] = result
         callback(null, data)
       })
     }
